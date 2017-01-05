@@ -40,14 +40,25 @@ public class LineaVenta {
 	}
 	
 	public String getDescripcion() {
+		if (producto==null)
+			return null;
 		return producto.getDescripcion();
 	}
+	public Long getProductoId() {
+		if (producto==null)
+			return null;
+		return producto.getId();
+	}
 	public Double getPrecio() {
+		if (producto==null)
+			return null;
 		return producto.getPrecio();
 	}
 
 
 	public Double getSubtotal() {
+		if (producto==null)
+			return 0.0;
 		return producto.getPrecio() * cantidad;
 	}
 }

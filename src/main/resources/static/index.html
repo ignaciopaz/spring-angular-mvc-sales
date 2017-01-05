@@ -8,7 +8,7 @@
 	</head>
 
 	<body>
-	<h2>Shopping Card Example</h2>
+	<h2>Shopping Cart Example</h2>
 	
 	<div ng:controller="CartForm" data-ng-init="recargarVenta()">
 		<table class="table" width="20%">
@@ -27,7 +27,7 @@
 	            <th></th>
 	        </tr>
 	        <tr ng:repeat="linea in venta.lineas">
-	            <td><input type="number" ng:change="actualizarProducto($index, linea.producto.id)" ng:model="linea.producto.id" class="input-small"></td>     
+	            <td><input type="number" ng:change="actualizarProducto($index, linea.productoId)" ng:model="linea.productoId" class="input-small"></td>     
 	            <td>{{linea.descripcion}}</td>      
 	            <td><input type="number" ng:model="linea.cantidad" ng:change="actualizarCantidad($index, linea.cantidad)" ng:required class="input-mini"></td>
 	            <td>{{linea.precio}}</td>

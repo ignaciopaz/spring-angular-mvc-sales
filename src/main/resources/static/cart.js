@@ -14,15 +14,9 @@ function CartForm($scope, $http) {
     $scope.actualizarCantidad = function(index, cantidad) {
    		get('/actualizarCantidad?index='+index+'&cantidad='+cantidad);
    },
-    $scope.agregarlinea = function() {            
-	   //get('/agregarLinea'); 
-	   $scope.venta.lineas.push({
-            cantidad: 0,
-            descipcion: '',
-            precio: ''
-	        
-        });
-    },
+    $scope.agregarlinea = function() {
+	   get('/agregarLinea'); 
+   },
 
     $scope.removelinea = function(index) {
        // $scope.venta.lineas.splice(index, 1);
