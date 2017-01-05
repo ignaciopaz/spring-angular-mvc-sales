@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Scope("session")
+/* Rest should be stateless but we use a session asc this is just an educational example for the university to be aligned
+ * with the approach of Larman - Applying UML and Patterns.
+ * We use a rest controller to consume easier with angular.
+ */
+
 public class VentaController {
 
     private static final String template = "Hello, %s!";
