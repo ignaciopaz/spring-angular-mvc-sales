@@ -1,4 +1,5 @@
-function CartForm($scope, $http) {
+angular.module('ventas', [])
+	.controller('venta', function($scope, $http) {
 	
     $scope.venta = {};
     
@@ -23,8 +24,9 @@ function CartForm($scope, $http) {
     }
     
     function get(get) {
-	    $http.get(get).then(function(response) {
+    	var api = '/venta/';
+	    $http.get(api+get).then(function(response) {
 	        $scope.venta =response.data;
 	    });
     }
-}
+});

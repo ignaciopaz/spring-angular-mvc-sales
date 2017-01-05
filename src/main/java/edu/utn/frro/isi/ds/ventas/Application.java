@@ -1,4 +1,4 @@
-package hello;
+package edu.utn.frro.isi.ds.ventas;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

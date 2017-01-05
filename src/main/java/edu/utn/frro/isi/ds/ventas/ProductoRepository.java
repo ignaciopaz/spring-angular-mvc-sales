@@ -1,4 +1,4 @@
-package hello;
+package edu.utn.frro.isi.ds.ventas;
 
 import java.util.Collection;
 import java.util.List;

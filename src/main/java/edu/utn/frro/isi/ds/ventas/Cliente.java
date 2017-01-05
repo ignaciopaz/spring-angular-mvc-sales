@@ -1,4 +1,4 @@
-package hello;
+package edu.utn.frro.isi.ds.ventas;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

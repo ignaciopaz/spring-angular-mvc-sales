@@ -1,6 +1,7 @@
-package hello;
+package edu.utn.frro.isi.ds.ventas;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -22,10 +23,13 @@ public class Venta {
 
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<LineaVenta> lineas = new ArrayList<LineaVenta>();
+	
+	private Date fechaVenta;
 
 
 	protected Venta(Cliente cliente) {
 		this.cliente=cliente;
+		this.fechaVenta=new Date();
 	}
 
 	public void agregarProducto(Producto producto, Integer cantidad) {

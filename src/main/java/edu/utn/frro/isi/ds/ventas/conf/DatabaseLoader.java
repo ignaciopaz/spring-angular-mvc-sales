@@ -13,11 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package hello;
+package edu.utn.frro.isi.ds.ventas.conf;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import edu.utn.frro.isi.ds.ventas.Cliente;
+import edu.utn.frro.isi.ds.ventas.ClienteRepository;
+import edu.utn.frro.isi.ds.ventas.Producto;
+import edu.utn.frro.isi.ds.ventas.ProductoRepository;
 
 @Component
 public class DatabaseLoader implements CommandLineRunner {

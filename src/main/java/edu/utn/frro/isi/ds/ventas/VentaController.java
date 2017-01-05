@@ -1,4 +1,4 @@
-package hello;
+package edu.utn.frro.isi.ds.ventas;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -26,12 +26,12 @@ public class VentaController {
 		this.productRepository = productRepository;
 	}
 
-	 @RequestMapping("/recargarVenta")
+	 @RequestMapping("/venta/recargarVenta")
 	    public Venta recargarVenta() {
 	    	return venta;
 	 }
 	
-    @RequestMapping("/iniciarVenta")
+    @RequestMapping("/venta/iniciarVenta")
     public Venta iniciarVenta(@RequestParam(value="clienteId") Long id) {
     	Cliente cliente = customerRepository.findOne(id);
     	
@@ -40,7 +40,7 @@ public class VentaController {
     	return venta;
     }
     
-    @RequestMapping("/actualizarProducto")
+    @RequestMapping("/venta/actualizarProducto")
     public Venta actualizarLinea(@RequestParam(value="index") Integer index, @RequestParam(value="id") Long id, @RequestParam(value="cantidad", defaultValue="1") Integer cantidad) {
     	Producto producto = productRepository.findOne(id);
     	if (producto == null)
@@ -62,7 +62,7 @@ public class VentaController {
     	return venta;
     }
     
-    @RequestMapping("/actualizarCantidad")
+    @RequestMapping("/venta/actualizarCantidad")
     public Venta actualizarCantidad(@RequestParam(value="index") Integer index, @RequestParam(value="cantidad", defaultValue="1") Integer cantidad) {
     	if (cantidad<1) {
     		return venta;
@@ -74,9 +74,8 @@ public class VentaController {
 		return venta;
     }
     
-    @RequestMapping("/agregarLinea")
+    @RequestMapping("/venta/agregarLinea")
     public Venta agregarLinea() {
-    	System.out.println(venta);
     	venta.agregarLinea();
 		return venta;
     }
