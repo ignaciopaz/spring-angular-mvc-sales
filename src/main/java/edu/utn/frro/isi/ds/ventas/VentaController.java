@@ -18,16 +18,24 @@ public class VentaController {
    
     private final ClienteRepository customerRepository;
     private final ProductoRepository productRepository;
+    private final VentaRepository ventaRepository;
     private Venta venta;
 
 	@Autowired
-	public VentaController(ClienteRepository customerRepository, ProductoRepository productRepository) {
+	public VentaController(ClienteRepository customerRepository, ProductoRepository productRepository, VentaRepository ventaRepository) {
 		this.customerRepository = customerRepository;
 		this.productRepository = productRepository;
+		this.ventaRepository = ventaRepository;
 	}
 
 	 @RequestMapping("/venta/recargarVenta")
 	    public Venta recargarVenta() {
+	    	return venta;
+	 }
+	 
+	 @RequestMapping("/venta/reiniciarVenta")
+	    public Venta reiniciarVenta() {
+		 	venta = new Venta();
 	    	return venta;
 	 }
 	
@@ -77,6 +85,12 @@ public class VentaController {
     @RequestMapping("/venta/agregarLinea")
     public Venta agregarLinea() {
     	venta.agregarLinea();
+		return venta;
+    }
+    
+    @RequestMapping("/venta/confirmarCompra")
+    public Venta confirmarCompra() {
+    	ventaRepository.save(venta);
 		return venta;
     }
     

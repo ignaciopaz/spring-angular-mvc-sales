@@ -25,7 +25,9 @@ public class Venta {
 	private List<LineaVenta> lineas = new ArrayList<LineaVenta>();
 	
 	private Date fechaVenta;
-
+	
+	protected Venta() {
+	}
 
 	protected Venta(Cliente cliente) {
 		this.cliente=cliente;
@@ -64,6 +66,14 @@ public class Venta {
 			linea = lineas.get(index);
 		}
 		return linea;
+	}
+
+	public Long getId() {
+		return id;
+	}
+	
+	public Boolean isTerminada(){
+		return id!=null;
 	}
 
 }
