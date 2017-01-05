@@ -1,0 +1,51 @@
+<!doctype html>
+<html ng-app>
+	<head>
+		<title>Shopping Cart</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"></script>
+    	<script src="cart.js"></script>
+    	<link rel="stylesheet" href="http://d1e24pw9mnwsl8.cloudfront.net/c/bootstrap/css/bootstrap.min.css">
+	</head>
+
+	<body>
+	<h2>Shopping Card Example</h2>
+	
+	<div ng:controller="CartForm" data-ng-init="recargarVenta()">
+		<table class="table" width="20%">
+			<tr>
+				<td width="200px">Cliente ID: <input type="number" ng:change="iniciarVenta(venta.cliente.id)" ng:model="venta.cliente.id" class="input-small"></td>
+				<td>{{venta.cliente.nombre}} {{venta.cliente.apellido}}</td>
+			</tr>
+		</table>
+	    <table class="table">
+	        <tr>
+	            <th>Id Producto</th>
+	            <th>Descripción</th>
+	            <th>Cantidad</th>
+	            <th>Precio</th>
+	            <th>Subtotal</th>
+	            <th></th>
+	        </tr>
+	        <tr ng:repeat="linea in venta.lineas">
+	            <td><input type="number" ng:change="actualizarProducto($index, linea.producto.id)" ng:model="linea.producto.id" class="input-small"></td>     
+	            <td>{{linea.descripcion}}</td>      
+	            <td><input type="number" ng:model="linea.cantidad" ng:change="actualizarCantidad($index, linea.cantidad)" ng:required class="input-mini"></td>
+	            <td>{{linea.precio}}</td>
+	            <td>{{linea.subtotal | currency}}</td>
+	            <td>
+	                [<a href ng:click="removerlinea($index)">X</a>]
+	            </td>
+	        </tr>
+	        <tr>
+	            <td><a href ng:click="agregarlinea()" class="btn btn-small">Agregar linea</a></td>
+	            <td></td>
+	            <td></td>
+	            <td><strong>Total:</strong></td>
+	            <td><strong>{{venta.total | currency}}</strong></td>
+	            <td></td>
+	        </tr>
+	    </table>
+	</div>
+
+	</body>
+</html>
