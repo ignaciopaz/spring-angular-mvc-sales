@@ -1,35 +1,38 @@
 package edu.utn.frro.isi.ds.ventas;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @Scope("session")
-/* Rest should be stateless but we use a session asc this is just an educational example for the university to be aligned
- * with the approach of Larman - Applying UML and Patterns.
- * We use a rest controller to consume easier with angular.
+/* Rest should be stateless but we use a session as this is just an educational example for
+ * university students to be aligned with the session controller approach of book: Larman - Applying UML and Patterns.
+ * We use a rest controller to consume json easier from Angular.
  */
 
 public class VentaController {
 
     private static final String template = "Hello, %s!";
    
-    private final ClienteRepository customerRepository;
-    private final ProductoRepository productRepository;
+    private final ClienteRepository clienteRepository;
+    private final ProductoRepository productoRepository;
     private final VentaRepository ventaRepository;
     private Venta venta;
 
 	@Autowired
 	public VentaController(ClienteRepository customerRepository, ProductoRepository productRepository, VentaRepository ventaRepository) {
-		this.customerRepository = customerRepository;
-		this.productRepository = productRepository;
+		this.clienteRepository = customerRepository;
+		this.productoRepository = productRepository;
 		this.ventaRepository = ventaRepository;
 	}
 
@@ -46,7 +49,7 @@ public class VentaController {
 	
     @RequestMapping("/venta/iniciarVenta")
     public Venta iniciarVenta(@RequestParam(value="clienteId") Long id) {
-    	Cliente cliente = customerRepository.findOne(id);
+    	Cliente cliente = clienteRepository.findOne(id);
     	
     	venta = new Venta(cliente);
     	
@@ -55,7 +58,7 @@ public class VentaController {
     
     @RequestMapping("/venta/actualizarProducto")
     public Venta actualizarLinea(@RequestParam(value="index") Integer index, @RequestParam(value="id") Long id, @RequestParam(value="cantidad", defaultValue="1") Integer cantidad) {
-    	Producto producto = productRepository.findOne(id);
+    	Producto producto = productoRepository.findOne(id);
     	if (producto == null)
     		return venta;
     	LineaVenta linea = venta.getLineaAt(index);
@@ -96,6 +99,21 @@ public class VentaController {
     @RequestMapping("/venta/confirmarCompra")
     public Venta confirmarCompra() {
     	ventaRepository.save(venta);
+		return venta;
+    }
+    
+    
+    @RequestMapping(value="/ventas", method=RequestMethod.POST)
+    public Venta confirmarCompraPost(@RequestBody Venta ventaDTO) {
+    	venta=ventaDTO;
+    	
+    	venta = new Venta(clienteRepository.findOne(ventaDTO.getCliente().getId()));
+    	for (LineaVenta lineaVenta : ventaDTO.getLineas()) {
+    		venta.agregarProducto(productoRepository.findOne(lineaVenta.getProductoId()), lineaVenta.getCantidad());
+    	}
+    	
+    	ventaRepository.save(venta);
+    	
 		return venta;
     }
     

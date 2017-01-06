@@ -1,6 +1,12 @@
-angular.module('ventas', ['ngAnimate'])
-	.controller('venta', function($scope, $http) {
+angular.module('ventas', ['ngResource', 'ngAnimate'])
+	.controller('venta', function($scope, $http, $resource) {
 	
+		var Venta = $resource('/ventas/:id',
+				 { id:'@id'}, {
+				  charge: {method:'POST', params:{charge:true}}
+				 })
+		
+		
     $scope.venta = {};
     
     $scope.iniciarVenta = function(clienteId) {
@@ -29,11 +35,23 @@ angular.module('ventas', ['ngAnimate'])
    	$scope.confirmarCompra = function() {
    		get('confirmarCompra');
     }, 
+    $scope.confirmarCompraPost = function(venta) {
+    	//get('confirmarCompra2?cliente='+JSON.stringify(venta.cliente));
+    	//alert(JSON.stringify(venta.cliente) );
+    	//$scope.venta.cliente = new Cliente(); //this object now has a $save() method
+    	var ventaNew = new Venta();
+    	ventaNew.cliente= venta.cliente;
+    	ventaNew.lineas= venta.lineas;
+    	ventaNew.$save(function(venta, putResponseHeaders){
+    		$scope.venta =venta;
+        });
+    	get('recargarVenta');
+    },
    
     $scope.getStates = function(state){
     	return $http.get('http://myservice.com/api/states', {
     		params: {
-    				state: state
+    			state: state
     		}
     	})
     }
@@ -41,6 +59,12 @@ angular.module('ventas', ['ngAnimate'])
     function get(get) {
     	var path = '/venta/';
 	    $http.get(path + get).then(function(response) {
+	        $scope.venta =response.data;
+	    });
+    }
+    function post(get) {
+    	var path = '/venta/';
+	    $http.post(path + get).then(function(response) {
 	        $scope.venta =response.data;
 	    });
     }
