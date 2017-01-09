@@ -46,14 +46,6 @@ angular.module('ventas', ['ngResource', 'ngAnimate'])
     		$scope.venta =venta;
         });
     	get('recargarVenta');
-    },
-   
-    $scope.getStates = function(state){
-    	return $http.get('http://myservice.com/api/states', {
-    		params: {
-    			state: state
-    		}
-    	})
     }
     
     function get(get) {
