@@ -79,7 +79,7 @@
 		                <tfoot>
 		                    <tr>
 		                        <td>
-			                        <button type="button" class="btn btn-default" ng:click="agregarlinea()" ng-disabled="form.$invalid"">
+			                        <button type="button" class="btn btn-default" ng:click="agregarlinea()" ng-disabled="form.$invalid || venta.terminada"">
 			                            <span class="glyphicon glyphicon-shopping-cart"></span> Agregar Item
 			                        </button>
 		                        </td>
